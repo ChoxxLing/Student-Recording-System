@@ -1,60 +1,73 @@
 package book.system.login;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
-import java.awt.event.*;
 
-public class LoginView{
-private JFrame frame;
-private JPanel loginPanel;
-public LoginView(JFrame frame, JPanel loginPanel){
-this.frame = frame;
-this.loginPanel = loginPanel;
-initView();
-}
+public class LoginView {
+	
+	private JFrame frame;
+	private JPanel loginPanel;
+	public LoginView(JFrame frame, JPanel loginPanel){
+	this.frame = frame;
+	this.loginPanel = loginPanel;
+	initView();
+	}
 
-public void initView(){
-frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-frame.setSize(380, 400);
-frame.setLayout(null);
+    public static void initView() {
+		
+		LineBorder lineBorder =new LineBorder(Color.white, 8, true);
+        JFrame frame = new JFrame("Login");
+        JPanel loginPanel = new JPanel();
+        Color background = new Color(172, 207, 203);
 
-loginPanel.setBounds(0,0, 380, 400);
-loginPanel.setBackground(Color.WHITE);
-loginPanel.setLayout(null);
-frame.add(loginPanel);
+        loginPanel.setBackground(background);
+        loginPanel.setBounds(0, 0, 300, 500);
+        loginPanel.setLayout(null);
+        frame.add(loginPanel);
+		
+        JLabel pic = new JLabel();
+        pic.setIcon(new ImageIcon("cite.jpg"));
+        pic.setBounds(93, 26, 125, 124);
+        loginPanel.add(pic);
 
-JLabel loginLabel = new JLabel("LOGIN");
-loginLabel.setBounds(10, 10, 500, 40);
-loginLabel.setFont(new Font("Arial", Font.BOLD, 25));
-loginPanel.add(loginLabel);
+        JLabel loginLabel = new JLabel("LOGIN");
+        loginLabel.setBounds(100, 147, 150, 44);
+        loginLabel.setFont(new Font("Calibre", Font.BOLD, 35));
+        loginPanel.add(loginLabel);
 
-JLabel usernameLabel = new JLabel("username:");
-usernameLabel.setBounds(10, 70, 100, 40);
-loginPanel.add(usernameLabel);
+        JLabel userLabel = new JLabel("Username:");
+        userLabel.setBounds(38, 222, 100, 19);
+        userLabel.setFont(new Font("Dialog", Font.BOLD, 15));
+        loginPanel.add(userLabel);
 
-JTextField usernameField = new JTextField("");
-usernameField.setBounds(10, 110, 350, 30);
-loginPanel.add(usernameField);
+        JTextField userField = new JTextField();
+        userField.setBounds(38, 244, 224, 28);
+		userField.setBorder(lineBorder);
+        loginPanel.add(userField);
 
-JLabel passwordLabel = new JLabel("password:");
-passwordLabel.setBounds(10, 140, 100, 40);
-loginPanel.add(passwordLabel);
+        JLabel passLabel = new JLabel("Password:");
+        passLabel.setBounds(38, 294, 100, 19);
+        passLabel.setFont(new Font("Dialog", Font.BOLD, 15));
+        loginPanel.add(passLabel);
 
-JPasswordField passwordField = new JPasswordField("");
-passwordField.setBounds(10, 180, 350, 30);
-loginPanel.add(passwordField);
+        JPasswordField passField = new JPasswordField();
+        passField.setBounds(38, 316, 224, 28);
+		passField.setBorder(lineBorder);
+        loginPanel.add(passField);
 
-JButton loginButton = new JButton("Login");
-loginButton.setBounds(10, 280, 350, 30);
-loginPanel.add(loginButton);
+        JButton logBtn = new JButton("LOGIN");
+        logBtn.setBounds(100, 418, 96, 22);
+		logBtn.setBackground(Color.WHITE);
+        loginPanel.add(logBtn);
 
-JButton registerButton = new JButton("Register");
-registerButton.setBounds(10, 315, 350, 30);
-loginPanel.add(registerButton);
-
-
-frame.setVisible(true);
-}
-
-
+		frame.setSize(315,540);
+		frame.setResizable(false);
+		frame.setLayout(null);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
+    
+    }
+	
 }
