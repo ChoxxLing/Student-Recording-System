@@ -16,7 +16,7 @@ public class LoginView {
 
     public static void initView() {
 		
-		LineBorder lineBorder =new LineBorder(Color.white, 8, true);
+		LineBorder lineBorder =new LineBorder(Color.white, 1, true);
         JFrame frame = new JFrame("Login");
         JPanel loginPanel = new JPanel();
         Color background = new Color(172, 207, 203);
