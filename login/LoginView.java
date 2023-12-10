@@ -31,7 +31,7 @@ public class LoginView {
         pic.setBounds(93, 26, 125, 124);
         loginPanel.add(pic);
 
-        JLabel loginLabel = new JLabel("LOGINn);
+        JLabel loginLabel = new JLabel("LOGIN);
         loginLabel.setBounds(100, 147, 150, 44);
         loginLabel.setFont(new Font("Calibre", Font.BOLD, 35));
         loginPanel.add(loginLabel);
