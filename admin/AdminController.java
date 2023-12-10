@@ -14,16 +14,16 @@ public class AdminController {
         new AdminView(frame, loginPanel);
     }
 
-    public static void displayRegisterView(JFrame frame, JPanel adminRegistrationPanel) {
-        new RegisterController(frame, adminRegistrationPanel);
+    public static void displayRegisterView(JFrame frame, JPanel adminPanel) {
+        new RegisterController(frame, adminPanel);
     }
 
-    public static void showRegisterTeacher(JFrame frame, JPanel adminRegistrationPanel) {
-        RegisterController.showRegisterTeacher(frame, adminRegistrationPanel);
+    public static void showRegisterTeacher(JFrame frame, JPanel adminPanel) {
+        RegisterController.showRegisterTeacher(frame, adminPanel);
     }
 
-    public static void showRegisterStudent(JFrame frame, JPanel adminRegistrationPanel) {
-        RegisterController.showRegisterStudent(frame, adminRegistrationPanel);
+    public static void showRegisterStudent(JFrame frame, JPanel adminPanel) {
+        RegisterController.showRegisterStudent(frame, adminPanel);
     }
 
 }

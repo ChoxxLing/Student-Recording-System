@@ -1,20 +1,27 @@
 package book.system.admin;
 
+import javax.swing.border.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 class AdminView{
     AdminView(JFrame frame, JPanel loginPanel){
-        JFrame adminFrame = new JFrame("Administrator");
         JPanel adminPanel = new JPanel();
         Color adminBackground = new Color(172, 207, 203);
-        LineBorder adminLineBorder = new LineBorder(Color.white, 1, true);
+        //LineBorder adminLineBorder = new LineBorder(Color.white, 1, true);
+        //fix the line border
+
 
         adminPanel.setBackground(adminBackground);
         adminPanel.setBounds(0, 0, 300, 500);
         adminPanel.setLayout(null);
-        adminFrame.add(adminPanel);
+        frame.add(adminPanel);
+
+        frame.getContentPane().removeAll();
+		frame.getContentPane().add(adminPanel);
+		frame.repaint();
+		frame.revalidate();
 
         JLabel adminPic = new JLabel();
         adminPic.setIcon(new ImageIcon("cite.jpg"));
@@ -86,11 +93,21 @@ class AdminView{
         anotherConfirmChoiceBtn.setBackground(Color.WHITE);
         adminPanel.add(anotherConfirmChoiceBtn);
 
-        JButton backadminBtn = new JButton("BACK");
+        JButton backadminBtn = new JButton("LOGOUT");
         backadminBtn.setBounds(100, 460, 96, 22);
         backadminBtn.setFont(new Font("Dialog", Font.BOLD, 12));
         backadminBtn.setBackground(Color.WHITE);
+        backadminBtn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				frame.getContentPane().removeAll();
+				frame.getContentPane().add(loginPanel);
+				frame.repaint();
+				frame.revalidate(); 
+				
+			}	
+		});
         adminPanel.add(backadminBtn);
+
 
         // ActionListener for the confirm button
         confirmChoiceBtn.addActionListener(new ActionListener() {
@@ -100,13 +117,13 @@ class AdminView{
                 String selectedRole = roleChoice.getSelectedItem();
                 switch (selectedRole) {
                     case "Admin":
-                        adminPanel.setBackground(Color.YELLOW);
+                        //adminPanel.setBackground(Color.YELLOW);
                         break;
                     case "Teacher":
-                        adminPanel.setBackground(Color.RED);
+                        //adminPanel.setBackground(Color.RED);
                         break;
                     case "Student":
-                        adminPanel.setBackground(Color.BLUE);
+                        //adminPanel.setBackground(Color.BLUE);
                         break;
                 }
             }
@@ -121,24 +138,19 @@ class AdminView{
                 // Add your logic for handling the role choice here
                    switch (selectedRole) {
                     case "Create (Teacher) Account":
-                        adminPanel.setBackground(Color.CYAN);
+                        AdminController.showRegisterTeacher(frame, adminPanel);
                         break;
                     case "Create (Student) Account":
-                        adminPanel.setBackground(Color.PINK);
+                        AdminController.showRegisterStudent(frame, adminPanel);
                         break;
                     case "Create (Admin) Account":
-                        adminPanel.setBackground(Color.BLACK);
+                        AdminController.displayRegisterView(frame, adminPanel);
                         break;
                 }
             }
         });
 
-        adminFrame.setSize(315, 540);
-        adminFrame.setResizable(false);
-        adminFrame.setLayout(null);
-        adminFrame.setVisible(true);
-        adminFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        adminFrame.setLocationRelativeTo(null);
+        
     }
 
 }

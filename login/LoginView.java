@@ -3,23 +3,25 @@ package book.system.login;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class LoginView {
-	
 	private JFrame frame;
 	private JPanel loginPanel;
 	public LoginView(JFrame frame, JPanel loginPanel){
-	this.frame = frame;
-	this.loginPanel = loginPanel;
-	initView();
-	
+		this.frame = frame;
+		this.loginPanel = loginPanel;
+		initView();
 	}
-
-    public static void initView() {
+	
+    public void initView() {
+        frame.setSize(315,540);
+		frame.setResizable(false);
+		frame.setLayout(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
 		
 		LineBorder lineBorder =new LineBorder(Color.white, 1, true);
-        JFrame frame = new JFrame("Login");
-        JPanel loginPanel = new JPanel();
         Color background = new Color(172, 207, 203);
 
         loginPanel.setBackground(background);
@@ -54,38 +56,43 @@ public class LoginView {
         userLabel.setFont(new Font("Dialog", Font.BOLD, 15));
         loginPanel.add(userLabel);
 
-        JTextField userField = new JTextField();
-        userField.setBounds(38, 244, 224, 28);
-		userField.setBorder(lineBorder);
-        loginPanel.add(userField);
+        JTextField usernameField = new JTextField("");
+        usernameField.setBounds(38, 244, 224, 28);
+		usernameField.setBorder(lineBorder);
+        loginPanel.add(usernameField);
 
         JLabel passLabel = new JLabel("Password:");
         passLabel.setBounds(38, 294, 100, 19);
         passLabel.setFont(new Font("Dialog", Font.BOLD, 15));
         loginPanel.add(passLabel);
 
-        JPasswordField passField = new JPasswordField();
-        passField.setBounds(38, 316, 224, 28);
-		passField.setBorder(lineBorder);
-        loginPanel.add(passField);
+        JPasswordField passwordField = new JPasswordField("");
+        passwordField.setBounds(38, 316, 224, 28);
+		passwordField.setBorder(lineBorder);
+        loginPanel.add(passwordField);
 
         JLabel contactLabel = new JLabel("Contact us: Tel. Number +63 32 346-1611   ||   cite-no-reply@gmail.com");
         contactLabel.setBounds(5, 475, 300, 20);
         contactLabel.setFont(new Font("Dialog", Font.ITALIC + Font.BOLD , 8));
         loginPanel.add(contactLabel);
 
-        JButton logBtn = new JButton("LOGIN");
-        logBtn.setBounds(100, 418, 96, 22);
-		logBtn.setBackground(Color.WHITE);
-        loginPanel.add(logBtn);
+        JButton loginButton = new JButton("Login");
+        loginButton.setBounds(100, 418, 96, 22);
+		loginButton.setBackground(Color.WHITE);
+        loginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String username = usernameField.getText();
+				String password = new String(passwordField.getPassword());
+				LoginController.ifUserExist(frame, loginPanel, usernameField, passwordField);
+				usernameField.setText("");
+				passwordField.setText("");
+			}
+		});
+        loginPanel.add(loginButton);
 
-		frame.setSize(315,540);
-		frame.setResizable(false);
-		frame.setLayout(null);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-    
+		
+        frame.setVisible(true);
     }
 
 }
+
