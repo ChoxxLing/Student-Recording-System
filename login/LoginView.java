@@ -12,6 +12,7 @@ public class LoginView {
 	this.frame = frame;
 	this.loginPanel = loginPanel;
 	initView();
+	
 	}
 
     public static void initView() {
@@ -31,10 +32,22 @@ public class LoginView {
         pic.setBounds(93, 26, 125, 124);
         loginPanel.add(pic);
 
-        JLabel loginLabel = new JLabel("LOGIN);
-        loginLabel.setBounds(100, 147, 150, 44);
+        JLabel loginLabel = new JLabel("LOGIN");
+        loginLabel.setBounds(97, 147, 150, 44);
         loginLabel.setFont(new Font("Calibre", Font.BOLD, 35));
         loginPanel.add(loginLabel);
+
+        JTextArea lineArea = new JTextArea();
+        lineArea.setBounds(0,195,300,1);
+        lineArea.setBackground(new Color(0,0,0));
+        lineArea.setEditable(false);
+        loginPanel.add(lineArea);
+
+        JTextArea lineArea2 = new JTextArea();
+        lineArea2.setBounds(0,468,300,1);
+        lineArea2.setBackground(new Color(0,0,0));
+        lineArea2.setEditable(false);
+        loginPanel.add(lineArea2);
 
         JLabel userLabel = new JLabel("Username:");
         userLabel.setBounds(38, 222, 100, 19);
@@ -56,6 +69,11 @@ public class LoginView {
 		passField.setBorder(lineBorder);
         loginPanel.add(passField);
 
+        JLabel contactLabel = new JLabel("Contact us: Tel. Number +63 32 346-1611   ||   cite-no-reply@gmail.com");
+        contactLabel.setBounds(5, 475, 300, 20);
+        contactLabel.setFont(new Font("Dialog", Font.ITALIC + Font.BOLD , 8));
+        loginPanel.add(contactLabel);
+
         JButton logBtn = new JButton("LOGIN");
         logBtn.setBounds(100, 418, 96, 22);
 		logBtn.setBackground(Color.WHITE);
@@ -69,5 +87,5 @@ public class LoginView {
 		frame.setLocationRelativeTo(null);
     
     }
-	
+
 }
