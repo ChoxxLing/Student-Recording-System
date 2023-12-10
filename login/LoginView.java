@@ -56,7 +56,7 @@ public class LoginView {
 		passField.setBorder(lineBorder);
         loginPanel.add(passField);
 
-        JButton logBtn = new JButton("LOGINn");
+        JButton logBtn = new JButton("LOGIN");
         logBtn.setBounds(100, 418, 96, 22);
 		logBtn.setBackground(Color.WHITE);
         loginPanel.add(logBtn);
