@@ -237,7 +237,7 @@ public class RegisterView{
                 registerAdminLabel.setFont(new Font ("Calibre" , Font.BOLD , 45));
                 registerStudentPanel.add(registerAdminLabel);
 
-                JLabel adminLabel = new JLabel("Teacher");
+                JLabel adminLabel = new JLabel("Student");
                 adminLabel.setBounds(105,187,150,44);
                 adminLabel.setFont(new Font ("Calibre" , Font.BOLD , 35));
                 registerStudentPanel.add(adminLabel);
