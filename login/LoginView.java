@@ -25,7 +25,7 @@ public class LoginView {
         Color background = new Color(172, 207, 203);
 
         loginPanel.setBackground(background);
-        loginPanel.setBounds(0, 0, 300, 500);
+        loginPanel.setBounds(0, 0, 315, 540);
         loginPanel.setLayout(null);
         frame.add(loginPanel);
 		
@@ -70,10 +70,20 @@ public class LoginView {
         passwordField.setBounds(38, 316, 224, 28);
 		passwordField.setBorder(lineBorder);
         loginPanel.add(passwordField);
+        passwordField.addActionListener(new ActionListener() {
+        @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
+                LoginController.ifUserExist(frame, loginPanel, usernameField, passwordField);
+                usernameField.setText("");
+                passwordField.setText("");
+            }
+        });
 
-        JLabel contactLabel = new JLabel("Contact us: Tel. Number +63 32 346-1611   ||   cite-no-reply@gmail.com");
+        JLabel contactLabel = new JLabel("Contact us: Tel. Number +63 32 346-1611  |  cite-no-reply@gmail.com");
         contactLabel.setBounds(5, 475, 300, 20);
-        contactLabel.setFont(new Font("Dialog", Font.ITALIC + Font.BOLD , 8));
+        contactLabel.setFont(new Font("Dialog", Font.ITALIC , 9));
         loginPanel.add(contactLabel);
 
         JButton loginButton = new JButton("Login");
