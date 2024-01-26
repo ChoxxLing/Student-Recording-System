@@ -3,11 +3,13 @@ package book.system.user;
 import javax.swing.*;
 import book.system.login.LoginController;
 import book.system.admin.AdminController;
+import book.system.student.StudentController;
+import book.system.teacher.TeacherController;
+import book.system.fillup.FillUpController;
 
 public class UserController{
 	private JFrame frame;
 	private JPanel loginPanel;
-	//private AdminController admin;
 
 	public UserController(JFrame frame, JPanel loginPanel){
 		this.frame = frame;
@@ -30,4 +32,17 @@ public class UserController{
 	public static void toAdminView(JFrame frame, JPanel loginPanel){
 		AdminController.adminController(frame, loginPanel);
 	}
+
+	public static void toStudentView(JFrame frame, JPanel loginPanel){
+		StudentController.studentController(frame, loginPanel);
+	}
+
+	public static void toTeacherView(JFrame frame, JPanel loginPanel){
+		TeacherController.teacherController(frame, loginPanel);
+	}
+
+	public static void tofillUpFormStudent(JFrame frame, JPanel loginPanel, String username){
+		FillUpController.fillUpController(frame, loginPanel, username);
+	}
 }
+
