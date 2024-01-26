@@ -4,6 +4,7 @@ import javax.swing.*;
 import book.system.user.UserController;
 import book.system.register.RegisterController;
 import book.system.dashboard.DashboardController;
+import book.system.fillup.FillUpController;
 
 public class LoginController{
 	private JFrame frame;
@@ -25,5 +26,6 @@ public class LoginController{
 	public static void displayRegisterView(JFrame frame, JPanel loginPanel){
 		new RegisterController(frame, loginPanel);
 	}
+
 
 }
