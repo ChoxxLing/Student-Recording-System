@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 
-    public class UserModel{
+public class UserModel{
         private JFrame frame;
         private JPanel loginPanel;
 
