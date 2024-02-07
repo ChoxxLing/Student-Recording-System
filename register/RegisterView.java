@@ -19,11 +19,11 @@ public class RegisterView{
 		frame.revalidate();
                 
                 registerPanel.setBackground(adminBackground);
-                registerPanel.setBounds(0,0,300,500);
+                registerPanel.setBounds(0,0,315,540);
                 registerPanel.setLayout(null);
 
                 JLabel adminPic = new JLabel();
-                adminPic.setIcon(new ImageIcon("cite.jpg"));
+                adminPic.setIcon(new ImageIcon("pictures\\cite.jpg"));
                 adminPic.setBounds(93,15,125,124);
                 registerPanel.add(adminPic);
 
@@ -49,7 +49,7 @@ public class RegisterView{
                 registerPanel.add(nameadminLabel);
 
                 JTextField nameField = new JTextField();
-                nameField.setBounds(38, 274, 224, 18);
+                nameField.setBounds(38, 274, 224, 27);
                 nameField.setBorder(adminLineBorder);
                 registerPanel.add(nameField);
 
@@ -59,7 +59,7 @@ public class RegisterView{
                 registerPanel.add(useradminLabel);
 
                 JTextField userField = new JTextField();
-                userField.setBounds(38, 319, 224, 18);
+                userField.setBounds(38, 319, 224, 27);
                 userField.setBorder(adminLineBorder);
                 registerPanel.add(userField);
 
@@ -69,9 +69,26 @@ public class RegisterView{
                 registerPanel.add(passadminLabel);
 
                 JPasswordField passField = new JPasswordField();
-                passField.setBounds(38, 365, 224, 18);
+                passField.setBounds(38, 365, 195, 27);
                 passField.setBorder(adminLineBorder);
                 registerPanel.add(passField);
+
+                JLabel showHideLabel = new JLabel();
+                showHideLabel.setIcon(new ImageIcon("pictures\\closeblack.jpg"));
+                showHideLabel.setBounds(235, 365, 30, 27);
+                registerPanel.add(showHideLabel);
+
+                boolean[] visible = {false};
+
+                // Add a MouseListener to the label to detect clicks
+                showHideLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                        visible[0] = !visible[0];
+                        passField.setEchoChar(visible[0] ? '\0' : '•');
+                        showHideLabel.setIcon(new ImageIcon(visible[0] ? "pictures\\openblack.jpg" : "pictures\\closeblack.jpg"));
+                }
+                });
 
                 /*JLabel conpassadminLabel = new JLabel("Confirm Password:");
                 conpassadminLabel.setBounds(38, 391, 224, 18);
@@ -121,11 +138,11 @@ public class RegisterView{
 		frame.revalidate();
                 
                 registerTeacherPanel.setBackground(adminBackground);
-                registerTeacherPanel.setBounds(0,0,300,500);
+                registerTeacherPanel.setBounds(0,0,315,540);
                 registerTeacherPanel.setLayout(null);
 
                 JLabel adminPic = new JLabel();
-                adminPic.setIcon(new ImageIcon("cite.jpg"));
+                adminPic.setIcon(new ImageIcon("pictures\\cite.jpg"));
                 adminPic.setBounds(93,15,125,124);
                 registerTeacherPanel.add(adminPic);
 
@@ -151,7 +168,7 @@ public class RegisterView{
                 registerTeacherPanel.add(nameadminLabel);
 
                 JTextField nameField = new JTextField();
-                nameField.setBounds(38, 274, 224, 18);
+                nameField.setBounds(38, 274, 224, 27);
                 nameField.setBorder(adminLineBorder);
                 registerTeacherPanel.add(nameField);
 
@@ -161,7 +178,7 @@ public class RegisterView{
                 registerTeacherPanel.add(useradminLabel);
 
                 JTextField userField = new JTextField();
-                userField.setBounds(38, 319, 224, 18);
+                userField.setBounds(38, 319, 224, 27);
                 userField.setBorder(adminLineBorder);
                 registerTeacherPanel.add(userField);
 
@@ -171,9 +188,27 @@ public class RegisterView{
                 registerTeacherPanel.add(passadminLabel);
 
                 JPasswordField passField = new JPasswordField();
-                passField.setBounds(38, 365, 224, 18);
+                passField.setBounds(38, 365, 195, 27);
                 passField.setBorder(adminLineBorder);
                 registerTeacherPanel.add(passField);
+
+                JLabel showHideLabel = new JLabel();
+                showHideLabel.setIcon(new ImageIcon("pictures\\closeblack.jpg"));
+                showHideLabel.setBounds(235, 365, 30, 27);
+                registerTeacherPanel.add(showHideLabel);
+
+                boolean[] visible = {false};
+
+                // Add a MouseListener to the label to detect clicks
+                showHideLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                        visible[0] = !visible[0];
+                        passField.setEchoChar(visible[0] ? '\0' : '•');
+                        showHideLabel.setIcon(new ImageIcon(visible[0] ? "pictures\\openblack.jpg" : "pictures\\closeblack.jpg"));
+                }
+                });
+
 
                 /*JLabel conpassadminLabel = new JLabel("Confirm Password:");
                 conpassadminLabel.setBounds(38, 391, 224, 18);
@@ -224,11 +259,11 @@ public class RegisterView{
 		frame.revalidate();
                 
                 registerStudentPanel.setBackground(adminBackground);
-                registerStudentPanel.setBounds(0,0,300,500);
+                registerStudentPanel.setBounds(0,0,315,540);
                 registerStudentPanel.setLayout(null);
 
                 JLabel adminPic = new JLabel();
-                adminPic.setIcon(new ImageIcon("cite.jpg"));
+                adminPic.setIcon(new ImageIcon("pictures\\cite.jpg"));
                 adminPic.setBounds(93,15,125,124);
                 registerStudentPanel.add(adminPic);
 
@@ -237,10 +272,10 @@ public class RegisterView{
                 registerAdminLabel.setFont(new Font ("Calibre" , Font.BOLD , 45));
                 registerStudentPanel.add(registerAdminLabel);
 
-                JLabel adminLabel = new JLabel("Student");
-                adminLabel.setBounds(105,187,150,44);
-                adminLabel.setFont(new Font ("Calibre" , Font.BOLD , 35));
-                registerStudentPanel.add(adminLabel);
+                JLabel studentLabel = new JLabel("Student");
+                studentLabel.setBounds(105,187,150,44);
+                studentLabel.setFont(new Font ("Calibre" , Font.BOLD , 35));
+                registerStudentPanel.add(studentLabel);
 
                 JTextArea lineadminArea = new JTextArea();
                 lineadminArea.setBounds(0,237,300,1);
@@ -254,7 +289,7 @@ public class RegisterView{
                 registerStudentPanel.add(nameadminLabel);
 
                 JTextField nameField = new JTextField();
-                nameField.setBounds(38, 274, 224, 18);
+                nameField.setBounds(38, 274, 224, 27);
                 nameField.setBorder(adminLineBorder);
                 registerStudentPanel.add(nameField);
 
@@ -264,7 +299,7 @@ public class RegisterView{
                 registerStudentPanel.add(useradminLabel);
 
                 JTextField userField = new JTextField();
-                userField.setBounds(38, 319, 224, 18);
+                userField.setBounds(38, 319, 224, 27);
                 userField.setBorder(adminLineBorder);
                 registerStudentPanel.add(userField);
 
@@ -274,9 +309,26 @@ public class RegisterView{
                 registerStudentPanel.add(passadminLabel);
 
                 JPasswordField passField = new JPasswordField();
-                passField.setBounds(38, 365, 224, 18);
+                passField.setBounds(38, 365, 195, 27);
                 passField.setBorder(adminLineBorder);
                 registerStudentPanel.add(passField);
+
+                JLabel showHideLabel = new JLabel();
+                showHideLabel.setIcon(new ImageIcon("pictures\\closeblack.jpg"));
+                showHideLabel.setBounds(235, 365, 30, 27);
+                registerStudentPanel.add(showHideLabel);
+
+                boolean[] visible = {false};
+
+                // Add a MouseListener to the label to detect clicks
+                showHideLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                        visible[0] = !visible[0];
+                        passField.setEchoChar(visible[0] ? '\0' : '•');
+                        showHideLabel.setIcon(new ImageIcon(visible[0] ? "pictures\\openblack.jpg" : "pictures\\closeblack.jpg"));
+                }
+                });
 
                 /*JLabel conpassadminLabel = new JLabel("Confirm Password:");
                 conpassadminLabel.setBounds(38, 391, 224, 18);
@@ -294,7 +346,7 @@ public class RegisterView{
                 registerButton.setBackground(Color.WHITE);
                 registerButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				RegisterController.toCreateUser(frame, nameField, userField, passField, adminPanel, 2);
+				RegisterController.toCreateUser(frame, nameField, userField, passField, adminPanel, 3);
 			}	
 		});
                 registerStudentPanel.add(registerButton);
