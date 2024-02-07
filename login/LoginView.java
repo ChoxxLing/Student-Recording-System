@@ -30,7 +30,7 @@ public class LoginView {
         frame.add(loginPanel);
 		
         JLabel pic = new JLabel();
-        pic.setIcon(new ImageIcon("cite.jpg"));
+        pic.setIcon(new ImageIcon("pictures\\cite.jpg"));
         pic.setBounds(93, 26, 125, 124);
         loginPanel.add(pic);
 
@@ -67,7 +67,7 @@ public class LoginView {
         loginPanel.add(passLabel);
 
         JPasswordField passwordField = new JPasswordField("");
-        passwordField.setBounds(38, 316, 224, 28);
+        passwordField.setBounds(38, 316, 195, 28);
 		passwordField.setBorder(lineBorder);
         loginPanel.add(passwordField);
         passwordField.addActionListener(new ActionListener() {
@@ -78,6 +78,23 @@ public class LoginView {
                 LoginController.ifUserExist(frame, loginPanel, usernameField, passwordField);
                 usernameField.setText("");
                 passwordField.setText("");
+            }
+        });
+
+        JLabel showHideLabel = new JLabel();
+        showHideLabel.setIcon(new ImageIcon("pictures\\closeblack.jpg"));
+        showHideLabel.setBounds(235, 316, 30, 27);
+        loginPanel.add(showHideLabel);
+
+         boolean[] visible = {false};
+
+        // Add a MouseListener to the label to detect clicks
+        showHideLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                visible[0] = !visible[0];
+                passwordField.setEchoChar(visible[0] ? '\0' : '•');
+                showHideLabel.setIcon(new ImageIcon(visible[0] ? "pictures\\openblack.jpg" : "pictures\\closeblack.jpg"));
             }
         });
 

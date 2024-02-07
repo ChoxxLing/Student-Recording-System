@@ -3,7 +3,6 @@ package book.system.login;
 import javax.swing.*;
 import book.system.user.UserController;
 import book.system.register.RegisterController;
-import book.system.dashboard.DashboardController;
 import book.system.fillup.FillUpController;
 
 public class LoginController{
@@ -19,13 +18,6 @@ public class LoginController{
 		UserController.ifUserExist(frame, loginPanel, usernameField, passwordField);
 	}
 
-    public static void displayWelcomeView(JFrame frame, JPanel loginPanel){
-		new DashboardController(frame, loginPanel);
-	}
-	
-	public static void displayRegisterView(JFrame frame, JPanel loginPanel){
-		new RegisterController(frame, loginPanel);
-	}
 
 
 }
