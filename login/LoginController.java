@@ -2,7 +2,6 @@ package book.system.login;
 
 import javax.swing.*;
 import book.system.user.UserController;
-import book.system.register.RegisterController;
 import book.system.fillup.FillUpController;
 
 public class LoginController{
