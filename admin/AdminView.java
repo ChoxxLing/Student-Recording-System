@@ -9,12 +9,12 @@ class AdminView{
     AdminView(JFrame frame, JPanel loginPanel){
         JPanel adminPanel = new JPanel();
         Color adminBackground = new Color(172, 207, 203);
-        //LineBorder adminLineBorder = new LineBorder(Color.white, 1, true);
-        //fix the line border
+        LineBorder adminLineBorder = new LineBorder(Color.white, 1, true);
+
 
 
         adminPanel.setBackground(adminBackground);
-        adminPanel.setBounds(0, 0, 300, 500);
+        adminPanel.setBounds(0, 0, 315, 540);
         adminPanel.setLayout(null);
         frame.add(adminPanel);
 
@@ -24,7 +24,7 @@ class AdminView{
 		frame.revalidate();
 
         JLabel adminPic = new JLabel();
-        adminPic.setIcon(new ImageIcon("cite.jpg"));
+        adminPic.setIcon(new ImageIcon("pictures\\cite.jpg"));
         adminPic.setBounds(93, 15, 125, 124);
         adminPanel.add(adminPic);
 
@@ -49,9 +49,9 @@ class AdminView{
         manageRoles.setFont(new Font("Dialog", Font.BOLD, 13));
         adminPanel.add(manageRoles);
 
-        // Replace JTextField with AWT Choice
+        
         Choice roleChoice = new Choice();
-        roleChoice.add("Admin");
+        //roleChoice.add("Admin"); //nindot unta 1 sa ato adminaccount kay para iya ma manage teacher ra ug student
         roleChoice.add("Teacher");
         roleChoice.add("Student");
         roleChoice.setBounds(38, 274, 224, 18);
@@ -61,6 +61,7 @@ class AdminView{
         // Button to confirm the choice
         JButton confirmChoiceBtn = new JButton("Confirm Choice");
         confirmChoiceBtn.setBounds(38, 300, 150, 22);
+        confirmChoiceBtn.setBorder(adminLineBorder);
         confirmChoiceBtn.setFont(new Font("Dialog", Font.BOLD, 12));
         confirmChoiceBtn.setBackground(Color.WHITE);
         adminPanel.add(confirmChoiceBtn);
@@ -77,36 +78,39 @@ class AdminView{
         adminPanel.add(createAccount);
 
 
-        // Another AWT Choice beneath lineadminArea2
+
         Choice createaccRoleChoice = new Choice();
         createaccRoleChoice.add("Create (Teacher) Account");
         createaccRoleChoice.add("Create (Student) Account");
-        createaccRoleChoice.add("Create (Admin) Account");
+        createaccRoleChoice.add("Create (Admin) Account"); // mo craete siya ug admin acount //pero dli pa kay siya complete
         createaccRoleChoice.setBounds(38, 389, 224, 18);
         createaccRoleChoice.setFont(new Font("Dialog", Font.PLAIN, 12));
         adminPanel.add(createaccRoleChoice);
 
-        // Buttons beneath lineadminArea2
+        
         JButton anotherConfirmChoiceBtn = new JButton("Confirm Choice");
         anotherConfirmChoiceBtn.setBounds(38, 415, 150, 22);
+        anotherConfirmChoiceBtn.setBorder(adminLineBorder);
         anotherConfirmChoiceBtn.setFont(new Font("Dialog", Font.BOLD, 12));
         anotherConfirmChoiceBtn.setBackground(Color.WHITE);
         adminPanel.add(anotherConfirmChoiceBtn);
 
-        JButton backadminBtn = new JButton("LOGOUT");
-        backadminBtn.setBounds(100, 460, 96, 22);
-        backadminBtn.setFont(new Font("Dialog", Font.BOLD, 12));
-        backadminBtn.setBackground(Color.WHITE);
-        backadminBtn.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				frame.getContentPane().removeAll();
-				frame.getContentPane().add(loginPanel);
-				frame.repaint();
-				frame.revalidate(); 
-				
-			}	
-		});
-        adminPanel.add(backadminBtn);
+        JButton logoutBtn = new JButton("LOGOUT");
+        logoutBtn.setBounds(100, 460, 96, 22);
+        logoutBtn.setFont(new Font("Dialog", Font.BOLD, 12));
+        logoutBtn.setBackground(Color.WHITE);
+        logoutBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int confirmation = JOptionPane.showConfirmDialog(frame, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
+                if (confirmation == JOptionPane.YES_OPTION) {
+                    frame.getContentPane().removeAll();
+                    frame.getContentPane().add(loginPanel);
+                    frame.repaint();
+                    frame.revalidate();
+                }
+            }
+        });
+        adminPanel.add(logoutBtn);
 
 
         // ActionListener for the confirm button
@@ -118,12 +122,17 @@ class AdminView{
                 switch (selectedRole) {
                     case "Admin":
                         //adminPanel.setBackground(Color.YELLOW);
-                        break;
+                       // break;
                     case "Teacher":
-                        //adminPanel.setBackground(Color.RED);
+                        System.out.println("opening the dashboard");
+                        setComponentsEnabled(frame, false);
+                        AdminController.displayDashboard(frame, adminPanel, false);
                         break;
                     case "Student":
                         //adminPanel.setBackground(Color.BLUE);
+                        System.out.println("opening the dashboard studnet");
+                        setComponentsEnabled(frame, false);
+                        AdminController.displayDashboardStudent(frame, adminPanel, false);
                         break;
                 }
             }
@@ -135,7 +144,6 @@ class AdminView{
             public void actionPerformed(ActionEvent e) {
                 // Check the selected item in the Choice component
                 String selectedRole = createaccRoleChoice.getSelectedItem();
-                // Add your logic for handling the role choice here
                    switch (selectedRole) {
                     case "Create (Teacher) Account":
                         AdminController.showRegisterTeacher(frame, adminPanel);
@@ -152,5 +160,16 @@ class AdminView{
 
         
     }
+
+    private static void setComponentsEnabled(Container container, boolean enabled) {
+        Component[] components = container.getComponents();
+        for (Component component : components) {
+            if (component instanceof Container) {
+                setComponentsEnabled((Container) component, enabled);
+            }
+            component.setEnabled(enabled);
+        }
+    }
+
 
 }

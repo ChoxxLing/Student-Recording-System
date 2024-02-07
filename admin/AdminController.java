@@ -4,11 +4,11 @@ import javax.swing.*;
 import book.system.login.LoginController;
 import book.system.user.UserController;
 import book.system.register.RegisterController;
+import book.system.dashboard.DashboardController;
 
 public class AdminController {
     private JFrame frame;
     private JPanel loginPanel;
-   // private RegisterController register;
     
     public static void adminController(JFrame frame, JPanel loginPanel) {
         new AdminView(frame, loginPanel);
@@ -24,6 +24,14 @@ public class AdminController {
 
     public static void showRegisterStudent(JFrame frame, JPanel adminPanel) {
         RegisterController.showRegisterStudent(frame, adminPanel);
+    }
+
+    public static void displayDashboard(JFrame frame, JPanel adminPanel, boolean setComponentsEnabled) {
+        DashboardController.dashboardController(frame, adminPanel, setComponentsEnabled);
+    }
+
+    public static void displayDashboardStudent(JFrame frame, JPanel adminPanel, boolean setComponentsEnabled) {
+        DashboardController.dashboardStudent(frame, adminPanel, setComponentsEnabled);
     }
 
 }
