@@ -14,7 +14,7 @@ import java.io.*;
             this.loginPanel = loginPanel;
         }
 
-        public static void toCreateUser(JFrame frame, JTextField nameField, JTextField userField, JPasswordField passField, JPanel loginPanel, int roleId) {
+    public static void toCreateUser(JFrame frame, JTextField nameField, JTextField userField, JPasswordField passField, JPanel loginPanel, int roleId) {
         String name = nameField.getText();
         String username = userField.getText();
         char[] password = passField.getPassword();
@@ -24,15 +24,31 @@ import java.io.*;
             return;
         }
 
+
         // Check if the user already exists
         if (userExists(username, new String(password))) {
             JOptionPane.showMessageDialog(frame, "User already exists");
             return;
         }
 
-        try (FileWriter fwrite = new FileWriter("database\\users.dat", true)) {
+        // Check if the username is already in use
+        if (usernameAlreadyInUse(username)) {
+            JOptionPane.showMessageDialog(frame, "Username already in use. Please choose a different one.");
+            return;
+        }
+
+         try (FileWriter fwrite = new FileWriter("database\\users.dat", true)) {
             fwrite.write(name + ":" + username + ":" + new String(password) + ":" + roleId + System.lineSeparator());
             JOptionPane.showMessageDialog(frame, "Register successfully");
+
+            // Check roleId and save to respective files
+            if (roleId == 2) {
+                saveUserDetailsToFile("database\\teachers.dat", name + ":" + username + ":" + new String(password) + ":" + roleId + System.lineSeparator());
+                System.out.println("saved also to teachers.dat");
+            } else if (roleId == 3) {
+                saveUserDetailsToFile("database\\students.dat", name + ":" + username + ":" + new String(password) + ":" + roleId + System.lineSeparator());
+                System.out.println("saved also to students.dat");
+            }
 
             frame.getContentPane().removeAll();
             frame.getContentPane().add(loginPanel);
@@ -44,6 +60,27 @@ import java.io.*;
         }
     }
 
+
+    private static boolean usernameAlreadyInUse(String username) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("database\\users.dat"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(":");
+
+                // Ensure that the line has at least two parts (username, password)
+                if (parts.length >= 2) {
+                    String savedUsername = parts[1].trim();
+
+                    if (savedUsername.equals(username)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     private static boolean userExists(String username, String password) {
         try (BufferedReader reader = new BufferedReader(new FileReader("database\\users.dat"))) {
@@ -69,6 +106,15 @@ import java.io.*;
     }
 
 
+    private static void saveUserDetailsToFile(String filePath, String userDetails) {
+        try (FileWriter fwrite = new FileWriter(filePath, true)) {
+            fwrite.write(userDetails);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 	
     public static void ifUserExist(JFrame frame, JPanel loginPanel, JTextField usernameField, JPasswordField passwordField) {
         String username = usernameField.getText();
@@ -88,12 +134,14 @@ import java.io.*;
                 // Check if the user exists
                 if (userExists(username, password)) {
                     // Check if the user has details
-                    if (!hasUserDetails(username, userRole)) {
+                    if (hasUserDetails(username, userRole)) {
                         if (userRole == 2) {
                             // Open fillupformteacher
+                            JOptionPane.showMessageDialog(frame, "Fill all the details first!");
                             System.out.println("Open fillupformteacher");
-                            // Uncomment the line below to actually open the fillupformteacher
-                            // UserController.tofillUpFormTeacher(frame, loginPanel);
+                            
+                             UserController.tofillUpFormTeacher(frame, loginPanel, username);
+                             
                             } else if (userRole == 3) {
                                 // Open fillupformstudent
                                 JOptionPane.showMessageDialog(frame, "Fill all the details first!");
@@ -115,13 +163,13 @@ import java.io.*;
                                             break;
                                         case 2:
                                             // Teacher role
-                                            JOptionPane.showMessageDialog(frame, "Welcome, Teacher!");
-                                            UserController.toTeacherView(frame, loginPanel);
+                                            //JOptionPane.showMessageDialog(frame, "Welcome, Teacher!");
+                                            UserController.toTeacherView(frame, loginPanel, username);
                                             break;
                                         case 3:
                                             // Student role
-                                            JOptionPane.showMessageDialog(frame, "Welcome, Student!");
-                                            UserController.toStudentView(frame, loginPanel);
+                                            //JOptionPane.showMessageDialog(frame, "Welcome, Student!");
+                                            UserController.toStudentView(frame, loginPanel, username);
                                             break;
                                         default:
                                             break;
@@ -165,29 +213,32 @@ import java.io.*;
     }
 
     private static boolean hasUserDetails(String username, int userRole) {
-        try (BufferedReader reader = new BufferedReader(new FileReader("database\\users.dat"))) {
-            String line;
+        // Check roleId and corresponding file for details
+        String filePath = (userRole == 2) ? "database\\teachers.dat" : (userRole == 3) ? "database\\students.dat" : "";
+
+        if (!filePath.isEmpty()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(":");
-                if (parts.length == 4) {
-                    String savedUsername = parts[0].trim();
-                    int savedUserRole = Integer.parseInt(parts[3].trim());
-
-                    if (savedUsername.equals(username)) {
-                        System.out.println("User found with details");  // Debugging output
-                        return true;
-                    }
+                if (parts.length == 4 && parts[1].trim().equals(username)) {
+                    System.out.println("User lacks details");  
+                    return true;
                 }
             }
-
-            System.out.println("User not found or lacks details");  // Debugging output
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error reading the file");  // Debugging output
+                System.out.println("User found with details");
+                return false;
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Error reading the file");
+                return false;
+            }
+        } else {
+            System.out.println("ADMIN user role");
             return false;
         }
     }
+
 
 
 }

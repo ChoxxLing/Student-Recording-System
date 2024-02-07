@@ -21,10 +21,6 @@ public class UserController{
 		UserModel.ifUserExist(frame, loginPanel,usernameField, passwordField);
 	}
 	
-	public static void displayWelcomeView(JFrame frame, JPanel loginPanel){
-		LoginController.displayWelcomeView(frame, loginPanel);
-	}
-	
 	public static void toCreateUser(JFrame frame, JTextField nameField, JTextField userField, JPasswordField passField, JPanel loginPanel, int roleId){
 		UserModel.toCreateUser(frame, nameField, userField, passField, loginPanel, roleId);
 	}
@@ -33,16 +29,20 @@ public class UserController{
 		AdminController.adminController(frame, loginPanel);
 	}
 
-	public static void toStudentView(JFrame frame, JPanel loginPanel){
-		StudentController.studentController(frame, loginPanel);
+	public static void toStudentView(JFrame frame, JPanel loginPanel, String username){
+		StudentController.studentController(frame, loginPanel, username);
 	}
 
-	public static void toTeacherView(JFrame frame, JPanel loginPanel){
-		TeacherController.teacherController(frame, loginPanel);
+	public static void toTeacherView(JFrame frame, JPanel loginPanel, String username){
+		TeacherController.teacherController(frame, loginPanel, username);
 	}
 
 	public static void tofillUpFormStudent(JFrame frame, JPanel loginPanel, String username){
 		FillUpController.fillUpController(frame, loginPanel, username);
+	}
+
+	public static void tofillUpFormTeacher(JFrame frame, JPanel loginPanel, String username){
+		FillUpController.fillUpTeacher(frame, loginPanel, username);
 	}
 }
 
