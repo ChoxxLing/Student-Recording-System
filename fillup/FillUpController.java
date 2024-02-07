@@ -6,9 +6,15 @@ import book.system.user.UserController;
 
 
 public class FillUpController{
-        public static void fillUpController(JFrame frame, JPanel loginPanel, String username){
-            new FillupForm(frame, loginPanel, username);
+    public static void fillUpController(JFrame frame, JPanel loginPanel, String username){
+        new FillUpView(frame, loginPanel, username);
 
-        }
+    }
+
+    public static void fillUpTeacher(JFrame frame, JPanel loginPanel, String username){
+        new FillupTeacher(frame, loginPanel, username);
+
+    }
 
 }
+

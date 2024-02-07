@@ -7,8 +7,8 @@ import java.io.*;
 import java.nio.file.*;
 import javax.swing.border.*;
 
-class FillUpView{
-	private JLabel titlelabel;
+class FillupTeacher{
+    private JLabel titlelabel;
 	private JTextField fnamefield;
     private JTextField mnamefield;
     private JTextField lnamefield;
@@ -23,7 +23,7 @@ class FillUpView{
     private JComboBox<String> departmentComboBox;
 
 
-	FillUpView(JFrame frame, JPanel loginPanel, String username){
+	FillupTeacher(JFrame frame, JPanel loginPanel, String username){
 
 		LineBorder lineBorder =new LineBorder(Color.white, 1, true);
 
@@ -184,7 +184,6 @@ class FillUpView{
         submitbtn.setBounds(155, 475, 100, 22);
         recordpanel.add(submitbtn);
 
-
         submitbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -192,7 +191,7 @@ class FillUpView{
                     String firstName = fnamefield.getText();
                     String middleName = mnamefield.getText();
                     String lastName = lnamefield.getText();
-                    String studentName = firstName + " " + middleName + " " + lastName;
+                    String teacherName = firstName + " " + middleName + " " + lastName;
 
                     String section = sectionfield.getText();
                     String batch = batchfield.getText();
@@ -205,7 +204,7 @@ class FillUpView{
                     String phoneNumber = phonenumberfield.getText();
                     String selectedDepartment = (String) departmentComboBox.getSelectedItem();
 
-                    String outputMessage = "Full Name: " + studentName +
+                    String outputMessage = "Full Name: " + teacherName +
                             "\nSection: " + section +
                             "\nBatch: " + batch +
                             "\nId No: " + idNo +
@@ -218,7 +217,7 @@ class FillUpView{
                             "User Input", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE,
                             null, null, null);
 
-                    String userData = studentName + ":" + section + ":" + batch + ":" +
+                    String userData = teacherName + ":" + section + ":" + batch + ":" +
                     idNo + ":" + birthday + ":" + emailAddress + ":" + phoneNumber + ":" +
                     selectedDepartment;
 
@@ -227,7 +226,7 @@ class FillUpView{
 
                     if (registrationOption == JOptionPane.OK_OPTION) {
                         JOptionPane.showMessageDialog(frame, "Details saved successfully!");
-                        JOptionPane.showMessageDialog(frame, "Login to your account again.");
+                        JOptionPane.showMessageDialog(frame, "Login to your account again.");     
 
                         frame.getContentPane().removeAll();
                         frame.getContentPane().add(loginPanel);
@@ -298,7 +297,7 @@ class FillUpView{
     }
 
     private void saveUserDataToFile(String data, String username) {
-        String filePath = "database\\students.dat";
+        String filePath = "database\\teachers.dat";
         int lineIndex = -1; // Initialize the line index
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath));
