@@ -11,32 +11,33 @@ import java.nio.file.*;
 import java.util.Arrays;
 import java.util.Calendar;
 
+/*
+    copy rani siya sa dashboard view dli pani mao HA! tarongonon pani
+    e transist pani para mo nindot (ONLY TEMPORARY )
+*/
 
 
-
-public class DashboardView {
+public class DashboardStudent {
     private static JTable teacherTable;
     private static CustomTableModel model;
     private static JComboBox<String> departmentFilter;
     private static JPanel birthdayPanel;
-    private static Object[] originalData;
 
-
-    DashboardView(JFrame frame, JPanel adminPanel, Boolean setComponentsEnabled) {
+    DashboardStudent(JFrame frame, JPanel adminPanel, Boolean setComponentsEnabled) {
         SwingUtilities.invokeLater(() -> {
             createAndShowGUI(frame, adminPanel, setComponentsEnabled);
         });
     }
 
-    private static void createAndShowGUI(JFrame frame, JPanel adminPanel, Boolean setComponentsEnabled) {
-        JFrame dashFrame = new JFrame("Teacher Records");
+    protected static void createAndShowGUI(JFrame frame, JPanel adminPanel, Boolean setComponentsEnabled) {
+        JFrame dashFrame = new JFrame("Student's Records");
         JPanel dashPanel = new JPanel(new BorderLayout());
         dashFrame.add(dashPanel);
 
         // Read data from the "users.dat" file
-       Object[] columnNames = {"#", "accountname", "username", "password", "roleId",  "Teacher's Name", "Section", "Batch", "Id no",
-        "Birthday", "Email Address", "Phone Number", "Department"};
-        model = new CustomTableModel(addRowNumbers(readUserDataFromFile("database//teachers.dat")), columnNames);
+       Object[] columnNames = {"#", "accountname", "username", "password", "roleId",  "Student's Name", "Section", "Batch", "Id no",
+        "Birthday", "Email Address", "Phone Number", "Department", "Grade"};
+        model = new CustomTableModel(addRowNumbers(readUserDataFromFile("database//students.dat")), columnNames);
 
         teacherTable = new JTable(model);
         adjustColumnWidths(teacherTable);
@@ -90,7 +91,7 @@ public class DashboardView {
                 int selectedRow = teacherTable.getSelectedRow();
 
                 if (selectedRow != -1) {
-                    Object[][] userData = readUserDataFromFile("database//teachers.dat");
+                    Object[][] userData = readUserDataFromFile("database//students.dat");
                     showDetailsPanel(userData[selectedRow], selectedRow);
                 } else {
                     JOptionPane.showMessageDialog(dashFrame, "Please select a row to view details");
@@ -99,7 +100,7 @@ public class DashboardView {
         });
 
          JPanel editPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        editPanel.add(new JLabel("Teacher Records"));
+        editPanel.add(new JLabel("Student Records"));
         editPanel.add(moreDetailsButton);
 
         dashPanel.add(editPanel, BorderLayout.SOUTH);
@@ -118,6 +119,8 @@ public class DashboardView {
 
     }
 
+
+    //for making the admin panel not clickable when dashboard is being use
     private static void setComponentsEnabled(Container container, boolean enabled) {
         Component[] components = container.getComponents();
         for (Component component : components) {
@@ -128,13 +131,12 @@ public class DashboardView {
         }
     }
 
-   private static Object[][] addRowNumbers(Object[][] data) {
+    private static Object[][] addRowNumbers(Object[][] data) {
         if (data.length == 0 || data[0].length == 0) {
         return new Object[0][0]; // Return an empty array if data is empty
     }
 
     Object[][] newData = new Object[data.length][data[0].length + 1];
-
 
         for (int i = 0; i < data.length; i++) {
             newData[i][0] = i + 1; // Add row numbers starting from 1
@@ -147,16 +149,15 @@ public class DashboardView {
     }
 
 
-
-    private static Object[] getColumnNames() {
-        return new Object[]{"#", "accountname", "username", "password", "roleId",  "Teacher's Name",
-                "Section", "Batch", "Id no", "Birthday", "Email Address", "Phone Number", "Department"};
+    protected static Object[] getColumnNames() {
+        return new Object[]{"#", "accountname", "username", "password", "roleId",  "Students's Name",
+                "Section", "Batch", "Id no", "Birthday", "Email Address", "Phone Number", "Department", "Grade"};
     }
 
 
     private static void refreshTable() {
         // Update the model for the table
-        model.setDataVector(addRowNumbers(readUserDataFromFile("database//teachers.dat")), getColumnNames());
+        model.setDataVector(addRowNumbers(readUserDataFromFile("database//students.dat")), getColumnNames());
         model.fireTableDataChanged();
 
         adjustColumnWidths(teacherTable);
@@ -164,7 +165,7 @@ public class DashboardView {
 
 
 
-    private static void adjustColumnWidths(JTable table) {
+    protected static void adjustColumnWidths(JTable table) {
         TableColumnModel columnModel = table.getColumnModel();
         for (int column = 0; column < table.getColumnCount(); column++) {
             int width = 15; // Min width
@@ -172,13 +173,19 @@ public class DashboardView {
             // Get the preferred width based on the column name
             String columnName = table.getColumnName(column);
             FontMetrics metrics = table.getFontMetrics(table.getFont());
-            int textWidth = metrics.stringWidth(columnName) + 10; 
+            int textWidth = metrics.stringWidth(columnName) + 10;
 
-            width = Math.max(textWidth, width);
+            if ("Grade".equals(columnName)) {
+                // Set a specific preferred width for the "Grade" column
+                width = Math.max(50, width); // Adjust the width as needed
+            } else {
+                width = Math.max(textWidth, width);
+            }
 
             columnModel.getColumn(column).setPreferredWidth(width);
         }
     }
+
 
 
     private static Object[][] readUserDataFromFile(String fileName) {
@@ -189,10 +196,10 @@ public class DashboardView {
             while ((line = reader.readLine()) != null) {
                 String[] userData = line.split(":");
                 
-                // Check the condition (element num 3 is equal to "2")
-                if (userData.length > 3 && "2".equals(userData[3])) {
-                    // Read all elements (from index 0 to 11)
-                    Object[] rowData = Arrays.copyOfRange(userData, 0, 12);
+                // Check the condition (element num 3 is equal to "3")
+                if (userData.length > 3 && "3".equals(userData[3])) {
+                    // Read all elements (from index 0 to 11)//12
+                    Object[] rowData = Arrays.copyOfRange(userData, 0, 13);
                     rows.add(rowData);
                 }
             }
@@ -263,14 +270,14 @@ public class DashboardView {
 
     
 
-    private static void showDetailsPanel(Object[] rowData, int selectedRow ) {
-        JFrame detailsFrame = new JFrame("Teacher Details");
+    protected static void showDetailsPanel(Object[] rowData, int selectedRow) {
+        JFrame detailsFrame = new JFrame("Student Details");
 
         JPanel mainPanel = new JPanel(new GridLayout(0, 2));
         mainPanel.setBackground(new Color(173, 216, 230));
 
-        String[] columnNames = {"accountname ", "username ", "password ", "roleId ",  "Teacher's Name ", "Section ", "Batch ", "Id no ",
-        "Birthday ", "Email Address ", "Phone Number ", "Department "};
+        String[] columnNames = {"accountname         ", "username ", "password ", "roleId ",  "Student's Name ", "Section ", "Batch ", "Id no ",
+        "Birthday ", "Email Address ", "Phone Number ", "Department ", "Grade"};
 
         JComponent[] textFields = new JComponent[columnNames.length];
 
@@ -311,6 +318,7 @@ public class DashboardView {
             }
         }
 
+
         JPanel buttonPanel = new JPanel(null);
 
         JButton editButton = new JButton("Edit");
@@ -334,7 +342,7 @@ public class DashboardView {
 
                 if (option == JOptionPane.YES_OPTION) {
                     // Delete the selected row from the "users.dat" file
-                    deleteRowFromFile("database//teachers.dat", selectedRow );
+                    deleteRowFromFile("database//students.dat", selectedRow);
 
                     // Update the model for the table
                     refreshTable();
@@ -380,7 +388,7 @@ public class DashboardView {
 
                 if (option == JOptionPane.YES_OPTION) {
                     // Save changes to the specific row in the "users.dat" file
-                    Object[][] updatedData = saveDataToFile(getUpdatedData(rowData, textFields), "teachers.dat", selectedRow);
+                    Object[][] updatedData = saveDataToFile(getUpdatedData(rowData, textFields), "students.dat", selectedRow);
 
                     // Set components back to not editable
                     for (JComponent component : textFields) {
@@ -450,13 +458,10 @@ public class DashboardView {
         return month + " " + day + " " + year;
     }
 
-
-
     private static Object[][] saveDataToFile(Object[][] data, String fileName, int rowToUpdate) {
         String filePath = "database" + File.separator + fileName;
         String tempFilePath = "database" + File.separator + "temp.dat";
 
-        // Store original data for the row to be updated
         Object[] originalRowData = readUserDataFromFile(filePath)[rowToUpdate];
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath));
@@ -471,7 +476,7 @@ public class DashboardView {
                     String[] existingData = line.split(":");
 
                     // Update specific elements (element num 1 to 12)
-                    for (int i = 0; i < 12; i++) {
+                    for (int i = 0; i < 13; i++) {
                         // Check if data is available for update, else use existing data
                         updatedLine.append(i > 0 ? ":" : "").append(i < data[0].length ? data[0][i] : existingData[i]);
                     }
@@ -484,19 +489,19 @@ public class DashboardView {
                 }
                 currentRow++;
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        // Rename the temp file to the original file
+        // Rename the temp file to users.dat
         try {
-            Files.move(Paths.get(tempFilePath), Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
+           Files.move(Paths.get(tempFilePath), Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
             System.out.println("Saved to " + fileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        // Update the "users.dat" file
         updateUsersFile(originalRowData, data[0]);
 
         // Return the updated data
@@ -504,7 +509,7 @@ public class DashboardView {
     }
 
 
-    private static void updateUsersFile(Object[] originalData, Object[] newData) {
+     private static void updateUsersFile(Object[] originalData, Object[] newData) {
         String usersFilePath = "database" + File.separator + "users.dat";
         String tempUsersFilePath = "database" + File.separator + "temp_users.dat";
 
@@ -552,7 +557,6 @@ public class DashboardView {
             e.printStackTrace();
         }
     }
-
 
 
     private static JComboBox<String> createDepartmentComboBox() {
@@ -639,11 +643,10 @@ public class DashboardView {
 
     
     private static void deleteRowFromFile(String fileName, int rowToDelete) {
-        // Read the original data before deleting the row
         Object[] originalData = readUserDataFromFile(fileName)[rowToDelete];
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            PrintWriter writer = new PrintWriter(new FileWriter("database" + File.separator + "temp.dat"))) {
+            PrintWriter writer = new PrintWriter(new FileWriter("database//temp.dat"))) {
 
             String line;
             int currentRow = 0;
@@ -658,17 +661,17 @@ public class DashboardView {
             e.printStackTrace();
         }
 
-        // Rename the temp file to the original file
+        // Rename the temp file to users.dat
         try {
             Files.move(Paths.get("database" + File.separator + "temp.dat"), Paths.get(fileName), StandardCopyOption.REPLACE_EXISTING);
             System.out.println("Removed from " + fileName);
 
-            // Delete the corresponding line from the users.dat file
             deleteFromUsersFile(originalData);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     private static void deleteFromUsersFile(Object[] originalData) {
         String usersFilePath = "database" + File.separator + "users.dat";
@@ -699,7 +702,4 @@ public class DashboardView {
     }
 
 
-
-
-    
 }
