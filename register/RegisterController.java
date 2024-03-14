@@ -4,7 +4,6 @@ import javax.swing.*;
 import book.system.user.UserController;
 
 public class RegisterController {
-    //private RegisterView view;
 
     public RegisterController(JFrame frame, JPanel adminPanel) {
         new RegisterView(frame, adminPanel);

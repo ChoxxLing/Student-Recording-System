@@ -11,9 +11,6 @@ import java.nio.file.*;
 import java.util.Arrays;
 import java.util.Calendar;
 
-
-
-
 public class DashboardView {
     private static JTable teacherTable;
     private static CustomTableModel model;

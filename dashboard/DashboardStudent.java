@@ -11,12 +11,6 @@ import java.nio.file.*;
 import java.util.Arrays;
 import java.util.Calendar;
 
-/*
-    copy rani siya sa dashboard view dli pani mao HA! tarongonon pani
-    e transist pani para mo nindot (ONLY TEMPORARY )
-*/
-
-
 public class DashboardStudent {
     private static JTable teacherTable;
     private static CustomTableModel model;
