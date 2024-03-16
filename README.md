@@ -7,13 +7,15 @@ Key Features:
 
 1. User Roles: The system incorporates three main user roles:
 
-    -Admin: Responsible for overall system control, including user management and security.
-    -Teacher: Monitors student progress and can input overall averages for students.
-    -Student: Can log in to view their grades and receive notifications.
+        -Admin: Responsible for overall system control, including user management and security.
    
-2. Grade Tracking: Teachers can input students' overall averages, allowing students to access their grades easily.
+        -Teacher: Monitors student progress and can input overall averages for students.
+   
+        -Student: Can log in to view their grades and receive notifications.
+   
+3. Grade Tracking: Teachers can input students' overall averages, allowing students to access their grades easily.
 
-3. Birthday Notifications: The system sends notifications for students and teachers birthdays, enhancing engagement and fostering a sense of community.
+4. Birthday Notifications: The system sends notifications for students and teachers birthdays, enhancing engagement and fostering a sense of community.
 
 
 Admin Privileges:
